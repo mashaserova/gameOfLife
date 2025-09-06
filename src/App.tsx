@@ -7,6 +7,7 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [generation, setGeneration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isDrawing, setIsDrawing] = useState(false);
 
   const gridRef = useRef(
     new Array(GRID_WIDTH * GRID_HEIGHT).fill(0).map(() => (Math.random() > 0.8 ? 1 : 0))
@@ -21,7 +22,7 @@ function App() {
     for (let y = 0; y < GRID_HEIGHT; y++) {
       for (let x = 0; x < GRID_WIDTH; x++) {
         let liveCount = 0;
-        // Соседние клетки
+
         for (let yO = y - 1; yO <= y + 1; yO++) {
           for (let xO = x - 1; xO <= x + 1; xO++) {
             if (xO >= 0 && xO < GRID_WIDTH && yO >= 0 && yO < GRID_HEIGHT) {
@@ -85,14 +86,45 @@ function App() {
     }
   }, [generation]);
 
+  const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!isDrawing) return;
+    event.preventDefault();
+    
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const cellWidth = canvas.width / GRID_WIDTH;
+    const cellHeight = canvas.height / GRID_HEIGHT;
+    const x = Math.floor(event.nativeEvent.offsetX / cellWidth);
+    const y = Math.floor(event.nativeEvent.offsetY / cellHeight); 
+
+    const newGrid = [...gridRef.current];
+    const cellIndex = x + GRID_WIDTH * y;
+
+    if (event.button === 0) {
+        newGrid[cellIndex] = 1;
+    } else if (event.button === 2) {
+        newGrid[cellIndex] = 0;
+    }
+    gridRef.current = newGrid;
+    setGeneration(prev => prev + 1)
+  }
+
   return (
     <>
-      <button onClick={() => setIsPlaying(true)}>Play</button>
+      <button onClick={() => {
+        setIsPlaying(true);
+        setIsDrawing(false);
+      }}>Play</button>
       <button onClick={() => setIsPlaying(false)}>Stop</button>
+      <button onClick={() => {
+        setIsPlaying(false);
+        setIsDrawing(true);
+      }}>Draw</button>
       <canvas
         ref={canvasRef}
         width={GRID_WIDTH * 10}
         height={GRID_HEIGHT * 10}
+        onMouseDown={handleCanvasClick}
         style={{ border: '1px solid black' }}
       />
     </>
