@@ -2,6 +2,8 @@
 
 ## Интерактивная реализация клеточного автомата «Игры в жизнь» (Conway's Game of Life) на React и TypeScript
 
+[![Deploy with Vercel](https://vercel.com/button)](https://game-of-life-zeta-one.vercel.app/)
+
 Стек: React, TypeScript, Vite, CSS Modules.
 
 «Игра в жизнь» — клеточный автомат, созданный Джоном Конвеем. Следующее состояние поля вычисляется по простым правилам, что приводит к emergence сложных и интересных паттернов. Этот проект — практическая реализация алгоритма на современном стеке фронтенд-разработки.
@@ -57,6 +59,5 @@ src/
 
     Код проекта: https://github.com/mashaserova/gameOfLife
 
-    Демо: [![Deploy with Vercel](https://vercel.com/button)](https://game-of-life-zeta-one.vercel.app/)
 
 Проект создан в учебных целях. «Игра в жизнь» Джона Конвея © 1970
