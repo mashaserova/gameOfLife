@@ -43,21 +43,5 @@
 
     Откройте браузер по адресу http://localhost:5173.
 
-Структура проекта
-
-"text
-src/
-├── components/  # React-компоненты (GameGrid, Controls)
-├── logic/       # Основная логика игры (правила, утилиты)
-├── types/       # TypeScript-типы
-├── styles/      # CSS Modules
-├── App.tsx
-└── main.tsx
-"
-
-Ссылки
-
-    Код проекта: https://github.com/mashaserova/gameOfLife
-
 
 Проект создан в учебных целях. «Игра в жизнь» Джона Конвея © 1970
